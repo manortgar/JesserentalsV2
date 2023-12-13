@@ -1,0 +1,80 @@
+<!-- add_item.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2>Agregar Nuevo Ítem</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="title">Título:</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio de venta:</label>
+      <input type="number" class="form-control" id="price" name="price" required>
+    </div>
+
+    <div class="form-group">
+      <label for="price_rent">Precio de alquiler:</label>
+      <input type="number" class="form-control" id="price_rent" name="price_rent" required>
+    </div>
+
+    <div class="form-group">
+      <label for="fabricante">Fabricante:</label>
+      <select class="form-control" id="fabricante" name="fabricante" required>
+        {% for choice in fabricante_choices %}
+        <option value="{{ choice }}">{{ choice.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Categoría:</label>
+      <select class="form-control" id="category" name="category" required>
+        {% for choice in category_choices %}
+        <option value="{{ choice }}">{{ choice.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="label">Color de etiqueta:</label>
+      <select class="form-control" id="label" name="label" required>
+        {% for choice in label_choices %}
+        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="slug">Referencia:</label>
+      <input type="text" class="form-control" id="slug" name="slug" required>
+    </div>
+    <!-- Agrega más campos según sea necesario -->
+
+    <div class="form-group">
+      <label for="image">Imagen:</label>
+      <input type="file" class="form-control-file" id="image" name="image" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción:</label>
+      <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="disponibility">Disponibilidad:</label>
+      <select class="form-control" id="disponibility" name="disponibility" required>
+        {% for choice in disponibility_choices %}
+        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>
+{% endblock %}

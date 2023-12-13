@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+    <h1 class="font-weight-bold text-warning" style="text-shadow: 2px 2px 2px black;">Lista de Usuarios</h1>
+    <ul class="list-group mt-4">
+      {% for userProfile in users %}
+      <li class="list-group-item">
+        <span>{{ userProfile.user }}</span>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-dark">Usuario: {{ userProfile.user.username }}</li>
+          <li class="list-group-item list-group-item-dark">DNI: {{ userProfile.DNI }}</li>
+          <li class="list-group-item list-group-item-dark">Teléfono: {{ userProfile.telefono }}</li>
+          <li class="list-group-item list-group-item-dark">Dirección: {{ userProfile.primary_address.street_address }}, {{ userProfile.primary_address.apartment_address }}</li>
+          <li class="list-group-item list-group-item-dark">Pais: {{ userProfile.primary_address.country }}</li>
+          <li class="list-group-item list-group-item-dark">CP: {{ userProfile.primary_address.zip }}</li>
+        </ul>
+        
+        <!-- Agrega enlaces de edición y eliminación -->
+        <a href="{% url 'core:edit_user'  userProfile.user.id %}" class="edit-btn btn btn-info btn-md my-2 p text-light">
+          Editar
+          <i class="fas fa-edit ml-1"></i>
+        </a>
+         
+
+        <a href="{% url 'core:delete_user' userProfile.user.id %}" class="delete-btn btn btn-danger btn-md my-2 p text-light">
+          Borrar
+          <i class="fas fa-trash-alt ml-1"></i>
+        </a>
+      </form>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+
+<script>
+    
+    var user_profile_DNI = "{{ userProfile.DNI }}";
+    var user_profile_telefono = "{{ userProfile.telefono }}";
+    
+
+    
+        if (user_profile_DNI == "None") {
+          "{{ userProfile.DNI }}" = "ninguno"
+        } 
+     
+    
+</script>
+{% endblock extra_scripts %}

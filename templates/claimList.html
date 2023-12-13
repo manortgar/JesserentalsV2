@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .table {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div>
+            <table class="table" style="margin:4em;">
+                <thead>
+                    <tr>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Autor</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for claim in claims %}
+                    <tr>
+                        <td><a href="/claims/{{ claim.id }}" style="color: white !important">{{ claim.title }}</a></td>
+                        <td>{{ claim.description }}</td>
+                        <td>{{ claim.user.username }}</td>
+                        <td>{{ claim.get_status_display }} <a href="/claims/{{ claim.id }}/change"
+                                class="edit-btn btn btn-info btn-md my-0 p text-light">
+                                Editar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
+{% endblock content %}

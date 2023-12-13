@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}No puedes borrar tu email principal ({{email}}).{% endblocktrans %}

@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Se ha borrado el email {{email}}.{% endblocktrans %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+      <h1 class="font-weight-bold text-warning" style="text-shadow: 2px 2px 2px black;">Editar Usuario</h1>
+
+      <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="form-group text-light">
+          <label for="id_username">Nuevo Usuario:</label>
+          <input type="text" name="username" id="id_username" value="{{ user.user.username }}" class="form-control">
+        </div>
+
+        <div class="form-group text-light">
+          <label for="id_dni">Nuevo DNI:</label>
+          <input type="text" name="DNI" id="DNI" value="{{ user.DNI }}" class="form-control" maxlength="9">
+        </div>
+
+        <div class="form-group text-light">
+          <label for="id_telefono">Nuevo Teléfono:</label>
+          <input type="text" name="telefono" id="telefono" value="{{ user.telefono }}" class="form-control" maxlength="9">
+        </div>
+
+        <div class="form-group text-light">
+          <label for="id_address">Nuevo Dirección:</label>
+          <input type="text" name="street_address" id="id_address" value="{{ address.street_address }}" class="form-control">
+        </div>
+
+        <div class="form-group text-light">
+          <label for="id_address">Nuevo apartamento:</label>
+          <input type="text" name="apartment_address" id="id_address" value="{{ address.apartment_address }}" class="form-control">
+        </div>
+
+        
+
+
+        <!-- Otros campos que desees editar -->
+
+        <button type="submit" class="btn btn-info">Guardar Cambios</button>
+      </form>
+    </div>
+  </main>
+{% endblock %}
+{% block extra_scripts %}
+
+<script>
+    
+    var user_profile_DNI = "{{ user.DNI }}";
+    var user_profile_telefono = "{{ user.telefono }}";
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+        
+        var DNI_input = document.getElementById("DNI");
+        var telefono_input = document.getElementById("telefono");
+        
+
+        
+        if (user_profile_DNI == "None") {
+            DNI_input.value = ""
+            telefono_input.value = ""
+        } else {
+            DNI_input.value = user_profile_DNI;
+            telefono_input.value = user_profile_telefono;
+        }
+     
+    });
+</script>
+{% endblock extra_scripts %}

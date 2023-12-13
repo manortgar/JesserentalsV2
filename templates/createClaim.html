@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <h1 class="text-center">Centro de Reclamaciones y Sugerencias</h1>
+        <p class="text-center">En caso de tener un problema con la página o querer sugerir un cambio en la página, escríbenos,
+            lo arreglaremos lo antes posible.</p>
+        <ul class="list-group mt-4 text-center" style="padding-left:30em; padding-right:40em;">
+            {% for claim in claims %}
+            <li class="list-group-item">
+              <ul class="list-group mt-2 bg-dark">
+                <li class="list-group-item list-group-item-dark">Título: {{ claim.title }}</li>
+                <li class="list-group-item list-group-item-dark">Descripción: {{ claim.description }}</li>
+                <li class="list-group-item list-group-item-dark">Estado: {{ claim.get_status_display }}</li>
+              </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <br>
+        <form method="POST">
+            <div class="form-group col-8 " style="padding-left:30em;">
+                {% csrf_token %}
+                {{ form }}
+                <button type='submit' class='btn btn-warning'>Añadir reclamación</button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
+{% endblock content %}

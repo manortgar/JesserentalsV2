@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+    <h1 class="font-weight-bold text-warning" style="text-shadow: 2px 2px 2px black;">Lista de Pedidos</h1>
+    
+
+    {% if orders %}
+    <ul class="list-group mt-4">
+      {% for order in orders %}
+      <li class="list-group-item">
+        <span>Ref. Code <strong>{{ order.ref_code }}</strong></span>
+        <form method="post" action="{% url 'core:order-list' %}">
+          {% csrf_token %}
+          <input type="hidden" name="order_id" value="{{ order.id }}">
+          <ul class="list-group mt-2 bg-dark">
+            <li class="list-group-item list-group-item-dark">Usuario: {{ order.user }}</li>
+            <li class="list-group-item list-group-item-dark">Productos: 
+              {% for order_item in order.items.all %}
+                {{ order_item.quantity }} x 
+                <strong>{{ order_item.item }}</strong> ({{ order_item.item.fabricante }}),
+              {% endfor %}
+            </li>
+            <li class="list-group-item list-group-item-dark">Fecha: {{ order.start_date }}</li>
+            <li class="list-group-item list-group-item-dark">Dirección: {{ order.shipping_address.street_address }}</li>
+            <li class="list-group-item list-group-item-dark">Forma de pago: 
+              {% if order.payment_type == 1 %}
+              Contrareembolso
+              {% else %}
+              Tarjeta de Credito</li>
+              {% endif %}
+            <li class="list-group-item list-group-item-dark"><strong>Estado: {{ order.get_statement_display }}</strong>
+              <select id="order_state" name="order_state">
+                {% for choice in state %}
+                  <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                {% endfor %}
+              </select>
+            </li>
+            <li class="list-group-item list-group-item-dark">
+              <button type="submit">Guardar Estado</button>
+            </li>
+            
+          </ul>
+        </form>
+      </li>
+      {% endfor %}
+      
+    </ul>
+    
+    
+    {% else %}
+    <p class="text-warning">No hay pedidos en curso ni pendientes.</p>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

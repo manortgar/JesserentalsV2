@@ -1,0 +1,45 @@
+{% block content %}
+
+<main>
+    <div class="container wow fadeIn">
+        <h1 class="my-5 h2 text-center text-yellow">Jesse Rentals</h1>
+        <h2 class="my-5 h2 text-center">Factura del pedido</h2>
+
+        <div> Te dejamos aqui toda la información sobre tu pedido </div>
+        <div><h3>Tu número de referencia de pedido es:</h3> <strong><h1>{{ order.ref_code }}</h1></strong></div>
+
+        <div class="row">
+            <div class="col-md-8 mb-4">
+                <h3>Información del cliente</h3>
+                <p>Email: {{ email }}</p>
+                <p>DNI: {{ DNI }}</p>
+                <p>Teléfono: {{ telefono }}</p>
+
+                <h3>Información de envío</h3>
+                {% if shipping_option == 'D' %}
+                <p>Dirección de envío: {{ shipping_address }}</p>
+                <p>País: {{ shipping_country }}</p>
+                <p>Código postal: {{ shipping_zip }}</p>
+                {% else %}
+                <p>Recogida en tienda: Avda. de los Tractores, 13</p>
+                {% endif %}
+
+                <h3>Información de pago</h3>
+                {% if not order.payment_type %}
+                <p>Opción de pago: Tarjeta de crédito</p>
+                {% else %}
+                <p>Opción de pago: Contrareembolso</p>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <hr class="mb-4">
+
+        <h3>Detalles del pedido</h3>
+        {% include "order_snippet.html" %}
+
+    </div>
+</main>
+
+{% endblock content %}
